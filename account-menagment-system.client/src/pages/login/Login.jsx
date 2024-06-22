@@ -1,34 +1,22 @@
-import { json, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Button from "../../components/button/Button";
 import styles from "./Login.module.css";
 import Error from "../../components/errorCom/Error";
-import { useEffect, useState } from "react";
-
-async function LoginFun(login, password) {
-  try {
-    const res = await fetch(`/Accounts/Login`, {
-      method: "POST",
-      body: JSON.stringify({ UserName: login, Password: password }),
-    });
-    console.log(res);
-    const data = await res.json();
-    console.log(res);
-    console.log(data);
-  } catch (err) {
-    console.log(err.message);
-  }
-}
+import { useState } from "react";
+import { useAuth } from "../../contexts/AuthContext";
 
 function Login() {
   const [login, setLogin] = useState("Maciek");
   const [password, setPassword] = useState("Test123");
+  const { loginFun } = useAuth();
+
   const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
     if (!login || !password) return;
 
-    LoginFun(login, password);
+    loginFun(login, password);
     navigate("/dashboard");
   }
 
