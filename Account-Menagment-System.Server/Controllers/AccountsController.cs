@@ -16,7 +16,7 @@ namespace Account_Menagment_System.Server.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    public class AccountsController : ControllerBase
+    public class AccountsController : Controller
     {
         private readonly IAccountService accountService;
 
@@ -26,7 +26,6 @@ namespace Account_Menagment_System.Server.Controllers
         }
 
         [HttpPost]
-        [Route("LoginForm")]
         public async Task<ActionResult<AccountDTO>> Login([FromBody] Login loginModel)
         {
             if (loginModel == null) return BadRequest();
@@ -38,24 +37,24 @@ namespace Account_Menagment_System.Server.Controllers
             return (AccountDTO)account;
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> ChangeStateAccount([FromBody] ChangeStateAccount changeStateAccount)
-        //{
-        //    if (changeStateAccount == null) return BadRequest();
+        [HttpPost]
+        public async Task<IActionResult> ChangeStateAccount([FromBody] ChangeStateAccount changeStateAccount)
+        {
+           if (changeStateAccount == null) return BadRequest();
 
-        //    return Json(await accountService.ChangeState(changeStateAccount, changeStateAccount));
-        //}
+           return Json(await accountService.ChangeState(changeStateAccount, changeStateAccount));
+        }
 
-        //[HttpGet]
-        //public async Task<IActionResult> GetAccountData([FromBody] AccountData accountData)
-        //{
-        //    if (accountData == null) return BadRequest();
+        [HttpGet]
+        public async Task<IActionResult> GetAccountData([FromBody] AccountData accountData)
+        {
+           if (accountData == null) return BadRequest();
 
-        //    var account = await accountService.GetAccount(accountData);
+           var account = await accountService.GetAccount(accountData);
 
-        //    if (account == null) return NotFound("Account not found");
+           if (account == null) return NotFound("Account not found");
 
-        //    return Json((AccountDTO)account);
-        //}
+           return Json((AccountDTO)account);
+        }
     }
 }
