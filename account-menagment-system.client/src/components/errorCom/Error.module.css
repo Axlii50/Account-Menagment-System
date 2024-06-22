@@ -1,0 +1,10 @@
+.error {
+  text-align: center;
+  display: block;
+  font-size: 2rem;
+  font-family: inherit;
+  font-weight: 500;
+  margin: 0.5rem 0;
+
+  color: red;
+}

@@ -1,0 +1,34 @@
+.account {
+  display: grid;
+  grid-template-columns: 2rem 20rem 20rem 1fr;
+  column-gap: 3rem;
+
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.account:first-child {
+  border-top: 2px solid var(--color-white);
+}
+
+.account:not(:last-child) {
+  border-bottom: 2px solid var(--color-white);
+}
+
+.account p {
+  font-size: 2rem;
+}
+
+.active {
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 50%;
+  background-color: red;
+}
+
+.btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}

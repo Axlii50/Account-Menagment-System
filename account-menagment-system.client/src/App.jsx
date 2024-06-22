@@ -1,49 +1,23 @@
-import { useEffect, useState } from 'react';
-import './App.css';
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-function App() {
-    const [forecasts, setForecasts] = useState();
+import Login from "./pages/login/Login";
+import Dashboard from "./pages/dashboard/Dashboard";
+import PageNotFound from "./pages/notFound/PageNotFound";
+import AccountManagement from "./components/management/AccountManagement";
 
-    useEffect(() => {
-        populateWeatherData();
-    }, []);
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route index element={<Login />} />
 
-    const contents = forecasts === undefined
-        ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
-        : <table className="table table-striped" aria-labelledby="tabelLabel">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Temp. (C)</th>
-                    <th>Temp. (F)</th>
-                    <th>Summary</th>
-                </tr>
-            </thead>
-            <tbody>
-                {forecasts.map(forecast =>
-                    <tr key={forecast.date}>
-                        <td>{forecast.date}</td>
-                        <td>{forecast.temperatureC}</td>
-                        <td>{forecast.temperatureF}</td>
-                        <td>{forecast.summary}</td>
-                    </tr>
-                )}
-            </tbody>
-        </table>;
+        <Route path="dashboard" element={<Dashboard />}>
+          <Route index element={<Navigate replace to="accountManagement" />} />
+          <Route path="accountManagement" element={<AccountManagement />} />
+        </Route>
 
-    return (
-        <div>
-            <h1 id="tabelLabel">Weather forecast</h1>
-            <p>This component demonstrates fetching data from the server.</p>
-            {contents}
-        </div>
-    );
-    
-    async function populateWeatherData() {
-        const response = await fetch('weatherforecast');
-        const data = await response.json();
-        setForecasts(data);
-    }
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
-
-export default App;

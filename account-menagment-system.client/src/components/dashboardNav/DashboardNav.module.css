@@ -1,0 +1,43 @@
+.nav {
+  padding: 1rem;
+  margin-bottom: 3rem;
+}
+
+.nav ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+
+  /* gap: 1rem; */
+}
+
+.nav ul li:last-child {
+  margin-left: auto;
+}
+
+.nav a:link,
+.nav a:visited {
+  display: inline-block;
+  text-decoration: none;
+  font-size: 2rem;
+  font-weight: 500;
+  font-family: inherit;
+  color: var(--color-white);
+
+  padding: 0.5rem 2rem;
+  text-transform: uppercase;
+  font-size: 2rem;
+
+  transition: all 0.4s;
+}
+
+.nav a:hover,
+.nav a:active {
+  background-color: var(--color-white);
+  color: var(--color-black);
+}
+
+.nav a:global(.active) {
+  background-color: var(--color-white);
+  color: var(--color-black);
+}

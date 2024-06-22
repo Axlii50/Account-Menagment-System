@@ -1,0 +1,32 @@
+.btn {
+  display: inline-block;
+  font-family: inherit;
+  font-size: 2.4rem;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 3px;
+
+  padding: 0.5rem 1rem;
+  transition: all 0.4s;
+}
+
+.btn:hover {
+  background-color: #303841;
+  color: var(--color-white);
+}
+
+.login {
+  margin-top: 0.5rem;
+  font-weight: 500;
+  font-size: 2.8rem;
+  text-transform: uppercase;
+}
+
+.action {
+  width: 12rem;
+  font-weight: 500;
+
+  background-color: var(--color-white);
+  color: var(--color-black);
+}
