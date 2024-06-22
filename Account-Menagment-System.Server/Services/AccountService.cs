@@ -38,5 +38,10 @@ namespace Account_Menagment_System.Server.Services
 
             return account;
         }
+
+        public async Task<AccountDTO[]> GetAccounts()
+        {
+           return await context.Account.Where(acc => !acc.IsAdmin).Select(acc => (AccountDTO)acc).ToArrayAsync();
+        }
     }
 }

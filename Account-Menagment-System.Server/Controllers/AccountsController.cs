@@ -56,5 +56,18 @@ namespace Account_Menagment_System.Server.Controllers
 
             return Json((AccountDTO)account);
         }
+
+        [HttpPost]
+        public async Task<ActionResult<AccountDTO[]>> GetAccountsData([FromBody] AccountData accountData)
+        {
+            if (accountData == null) return BadRequest();
+
+            var account = await accountService.GetAccount(accountData);
+
+            if (account == null) return NotFound("Account not found");
+            if(!account.IsAdmin) return BadRequest("Account is not Admin");
+
+            return await accountService.GetAccounts();
+        }
     }
 }
