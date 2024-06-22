@@ -24,7 +24,7 @@ namespace Account_Menagment_System.Server.Controllers
             this.accountService = accountService;
         }
 
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> Login([FromBody] Login loginModel)
         {
             if (loginModel == null) return BadRequest();
