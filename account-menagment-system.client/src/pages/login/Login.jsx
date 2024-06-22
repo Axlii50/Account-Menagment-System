@@ -5,11 +5,20 @@ import Error from "../../components/errorCom/Error";
 import { useEffect, useState } from "react";
 
 async function LoginFun(login, password) {
+    let json = JSON.stringify({ userName: login, password: password });
+    console.log(json);
   try {
-    const res = await fetch(`/Accounts/Login`, {
+      const res = await fetch(`Accounts/Login/LoginForm`, {
+          headers: {
+              'Accept': '*/*',
+              'Content-Type': 'application/json'
+          },
       method: "POST",
-      body: JSON.stringify({ UserName: login, Password: password }),
-    });
+      body: json,
+      });
+
+      
+
     console.log(res);
     const data = await res.json();
     console.log(res);
