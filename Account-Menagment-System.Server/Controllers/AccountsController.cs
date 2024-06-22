@@ -10,6 +10,7 @@ using Account_Menagment_System.Server.models.database.Account;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Account_Menagment_System.Server.Services;
 using Account_Menagment_System.Server.models.Account;
+using Account_Menagment_System.Server.Services.Interfaces;
 
 namespace Account_Menagment_System.Server.Controllers
 {
@@ -17,9 +18,9 @@ namespace Account_Menagment_System.Server.Controllers
     [Route("[controller]/[action]")]
     public class AccountsController : Controller
     {
-        private readonly AccountService accountService;
+        private readonly IAccountService accountService;
 
-        public AccountsController(AccountService accountService)
+        public AccountsController(IAccountService accountService)
         {
             this.accountService = accountService;
         }
