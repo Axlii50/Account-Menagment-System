@@ -23,12 +23,12 @@ function AuthProvider({ children }) {
 
   async function login(login, password) {
     try {
-      const res = await fetch(`/Account/Login`, {
+      const res = await fetch(`/Accounts/Login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ UserName: login, Password: password }),
+        body: JSON.stringify({ userName: login, password: password }),
       });
       console.log(res);
       const data = await res.json();
