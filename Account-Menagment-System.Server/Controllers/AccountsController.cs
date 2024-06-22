@@ -32,7 +32,7 @@ namespace Account_Menagment_System.Server.Controllers
 
             var account = await accountService.GetAccount(loginModel);
 
-            if(account == null) return NotFound();
+            if(account == null) return NotFound("Account not found");
 
             return Json((AccountDTO)account);
         }
@@ -52,7 +52,7 @@ namespace Account_Menagment_System.Server.Controllers
 
             var account = await accountService.GetAccount(accountData);
 
-            if (account == null) return NotFound();
+            if (account == null) return NotFound("Account not found");
 
             return Json((AccountDTO)account);
         }
