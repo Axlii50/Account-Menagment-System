@@ -6,7 +6,7 @@
 
         public static implicit operator Guid(AccountData model)
         {
-            return model.ID;
+            return model.Id;
         }
     }
 }
