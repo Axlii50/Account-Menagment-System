@@ -15,6 +15,7 @@ namespace Account_Menagment_System.Server.models.database.Account
 
         [NotMapped]
         public bool IsActive => Active && ExpirationDate > DateTime.UtcNow;
+        public bool IsAdmin { get; set; } = false;
        
         public bool Active { get; set; }
 
@@ -27,7 +28,8 @@ namespace Account_Menagment_System.Server.models.database.Account
             {
                 ID = model.ID,
                 Login = model.Login,
-                IsActive = model.IsActive
+                IsActive = model.IsActive,
+                IsAdmin = model.IsAdmin
             };
         }
     }
