@@ -4,32 +4,31 @@ import styles from "./Login.module.css";
 import Error from "../../components/errorCom/Error";
 import { useEffect, useState } from "react";
 
+async function LoginFun(login, password) {
+  try {
+    const res = await fetch(`/Accounts/Login`, {
+      method: "POST",
+      body: JSON.stringify({ UserName: login, Password: password }),
+    });
+    console.log(res);
+    const data = await res.json();
+    console.log(res);
+    console.log(data);
+  } catch (err) {
+    console.log(err.message);
+  }
+}
+
 function Login() {
-  const [login, setLogin] = useState("");
-  const [password, setPassword] = useState("");
-
+  const [login, setLogin] = useState("Maciek");
+  const [password, setPassword] = useState("Test123");
   const navigate = useNavigate();
-
-  useEffect(function () {
-    async function Login() {
-      try {
-        const res = await fetch(`Accounts/Login`, {
-          method: "POST",
-          body: JSON.stringify({ UserName: login, Password: password }),
-        });
-        const data = await res.json();
-        console.log(data);
-      } catch (err) {
-        console.log(err.message);
-      }
-    }
-    Login();
-  }, []);
 
   function handleSubmit(e) {
     e.preventDefault();
     if (!login || !password) return;
 
+    LoginFun(login, password);
     navigate("/dashboard");
   }
 
