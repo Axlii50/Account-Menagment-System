@@ -1,3 +1,8 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Account_Menagment_System.Server.Data;
+using Account_Menagment_System.Server.Services;
+using Account_Menagment_System.Server.Services.Interfaces;
 
 namespace Account_Menagment_System.Server
 {
@@ -6,8 +11,12 @@ namespace Account_Menagment_System.Server
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddDbContext<Account_Menagment_SystemServerContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("Account_Menagment_SystemServerContext") ?? throw new InvalidOperationException("Connection string 'Account_Menagment_SystemServerContext' not found.")));
 
             // Add services to the container.
+            builder.Services.AddScoped<IAccountService, AccountService>();
+
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
