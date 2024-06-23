@@ -8,12 +8,7 @@ import LoaderDashboard from "../../components/loader/LoaderDashboard";
 import styles from "./Accounts.module.css";
 
 function Accounts() {
-  const { user } = useAuth();
-  const { accounts, fetchAccounts, isLoading } = useDashboard();
-
-  useEffect(function () {
-    fetchAccounts(user.id);
-  }, []);
+  const { accounts, isLoading, changeStatus } = useDashboard();
 
   if (isLoading) return <LoaderDashboard />;
 
@@ -21,8 +16,12 @@ function Accounts() {
 
   return (
     <ul className={styles.accounts}>
-      {accounts.map((account) => (
-        <Account key={account.id} account={account} />
+      {accounts?.map((account) => (
+        <Account
+          key={account.id}
+          account={account}
+          changeStatus={changeStatus}
+        />
       ))}
     </ul>
   );

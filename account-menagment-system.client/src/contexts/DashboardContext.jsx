@@ -6,10 +6,23 @@ const initialState = {
   accounts: [],
 };
 
+let newArray;
+
 function reducer(state, action) {
   switch (action.type) {
     case "fetchedAccounts":
       return { ...state, accounts: action.payload };
+    case "changeStatus":
+      return {
+        ...state,
+        accounts: state.accounts.map((account) => {
+          if (account.id == action.payload.id) {
+            return { ...account, isActive: !account.isActive };
+          } else {
+            return account;
+          }
+        }),
+      };
     default:
       throw new Error("Action unknown");
   }
@@ -40,6 +53,7 @@ function DashboardProvider({ children }) {
 
   async function changeStatus(id, status) {
     try {
+      setIsLoading(true);
       const res = await fetch("/Accounts/ChangeStateAccount", {
         method: "POST",
         headers: {
@@ -48,9 +62,12 @@ function DashboardProvider({ children }) {
         body: JSON.stringify({ ID: id, State: status }),
       });
       const data = await res.json();
-      console.log(data);
+
+      dispatch({ type: "changeStatus", payload: data });
     } catch (err) {
       err.message;
+    } finally {
+      setIsLoading(false);
     }
   }
 

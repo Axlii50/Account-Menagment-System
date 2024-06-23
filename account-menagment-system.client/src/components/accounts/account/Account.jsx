@@ -3,8 +3,7 @@ import Button from "../../button/Button";
 
 import styles from "./Account.module.css";
 
-export default function Account({ account }) {
-  const { changeStatus } = useDashboard();
+export default function Account({ account, changeStatus }) {
   const active = !account.isActive;
 
   return (
