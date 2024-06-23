@@ -1,7 +1,10 @@
+import { useAuth } from "../../contexts/AuthContext";
 import styles from "./Error.module.css";
 
 function Error() {
-  return <p className={styles.error}>Tutaj pojawia się wiadomość error</p>;
+  const { error } = useAuth();
+
+  return <p className={styles.error}>{error}</p>;
 }
 
 export default Error;
