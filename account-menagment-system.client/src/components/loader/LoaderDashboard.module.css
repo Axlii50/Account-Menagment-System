@@ -1,0 +1,37 @@
+.loaderBG {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 2;
+
+  background: radial-gradient(
+    circle at 24.1% 68.8%,
+    rgb(50, 50, 50) 0%,
+    rgb(0, 0, 0) 99.4%
+  );
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader {
+  width: 12rem;
+  height: 12rem;
+  border-radius: 50%;
+
+  border: 10px solid var(--color-white);
+  border-bottom: 10px solid var(--color-black);
+
+  animation: spin infinite 1.5s linear;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

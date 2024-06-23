@@ -1,8 +1,12 @@
+import { useDashboard } from "../../../contexts/DashboardContext";
 import Button from "../../button/Button";
 
 import styles from "./Account.module.css";
 
 export default function Account({ account }) {
+  const { changeStatus } = useDashboard();
+  const active = !account.isActive;
+
   return (
     <li className={styles.account}>
       <span
@@ -14,7 +18,9 @@ export default function Account({ account }) {
       <p>&nbsp;</p>
 
       <div className={styles.btns}>
-        <Button type="action">{account.isActive ? "Wyłącz" : "Włącz"}</Button>
+        <Button onClick={() => changeStatus(account.id, active)} type="action">
+          {account.isActive ? "Wyłącz" : "Włącz"}
+        </Button>
       </div>
     </li>
   );

@@ -13,7 +13,6 @@ const initialState = {
   user: null,
   error: "",
   isAuth: false,
-  accounts: [],
 };
 
 function reducer(state, action) {
@@ -24,7 +23,6 @@ function reducer(state, action) {
         user: action.payload,
         isAuth: true,
         error: "",
-        accounts: action.getAccounts,
       };
     case "logout":
       return { ...initialState };
@@ -67,19 +65,8 @@ function AuthProvider({ children }) {
       }
       const data = await res.json();
 
-      const resAccounts = await fetch("Accounts/GetAccountsData", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ Id: data.id }),
-      });
-      console.log(resAccounts);
-      const dataUsers = await resAccounts.json();
-      console.log(dataUsers);
-
       if (login === data.login && data.isAdmin === true) {
-        dispatch({ type: "login", payload: data, getAccounts: dataUsers });
+        dispatch({ type: "login", payload: data });
         navigate("/dashboard", { replace: true });
       }
     } catch (err) {

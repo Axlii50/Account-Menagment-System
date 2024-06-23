@@ -1,9 +1,21 @@
+import { useEffect } from "react";
 import { useAuth } from "../../contexts/AuthContext";
-import styles from "./Accounts.module.css";
+import { useDashboard } from "../../contexts/DashboardContext";
+
 import Account from "./account/Account";
+import LoaderDashboard from "../../components/loader/LoaderDashboard";
+
+import styles from "./Accounts.module.css";
 
 function Accounts() {
-  const { accounts } = useAuth();
+  const { user } = useAuth();
+  const { accounts, fetchAccounts, isLoading } = useDashboard();
+
+  useEffect(function () {
+    fetchAccounts(user.id);
+  }, []);
+
+  if (isLoading) return <LoaderDashboard />;
 
   if (!accounts || !accounts.length) return;
 
