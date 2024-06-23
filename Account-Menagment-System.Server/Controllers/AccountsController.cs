@@ -26,7 +26,7 @@ namespace Account_Menagment_System.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<AccountDTO>> Login([FromBody] Login loginModel)
+        public async Task<IActionResult> Login([FromBody] Login loginModel)
         {
             if (loginModel == null) return BadRequest();
 
@@ -34,7 +34,7 @@ namespace Account_Menagment_System.Server.Controllers
 
             if(account == null) return NotFound("Account not found");
 
-            return (AccountDTO)account;
+            return Json((AccountDTO)account);
         }
 
         [HttpPost]
@@ -58,7 +58,7 @@ namespace Account_Menagment_System.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<AccountDTO[]>> GetAccountsData([FromBody] AccountData accountData)
+        public async Task<IActionResult> GetAccountsData([FromBody] AccountData accountData)
         {
             if (accountData == null) return BadRequest();
 
@@ -67,7 +67,7 @@ namespace Account_Menagment_System.Server.Controllers
             if (account == null) return NotFound("Account not found");
             if(!account.IsAdmin) return BadRequest("Account is not Admin");
 
-            return await accountService.GetAccounts();
+            return Json(await accountService.GetAccounts());
         }
     }
 }
