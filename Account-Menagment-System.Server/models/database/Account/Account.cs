@@ -14,7 +14,7 @@ namespace Account_Menagment_System.Server.models.database.Account
         public string Password { get; set; }
 
         [NotMapped]
-        public bool IsActive => Active && ExpirationDate > DateTime.UtcNow;
+        public bool IsActive => Active /*&& ExpirationDate > DateTime.UtcNow*/;
         public bool IsAdmin { get; set; } = false;
        
         public bool Active { get; set; }

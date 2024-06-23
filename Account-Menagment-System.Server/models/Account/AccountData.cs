@@ -2,11 +2,11 @@
 {
     public class AccountData
     {
-        public Guid Id { get; set; }
+        public Guid ID { get; set; }
 
         public static implicit operator Guid(AccountData model)
         {
-            return model.Id;
+            return model.ID;
         }
     }
 }
