@@ -19,11 +19,18 @@
   font-size: 2rem;
 }
 
-.active {
+.inActive {
   width: 1.9rem;
   height: 1.9rem;
   border-radius: 50%;
   background-color: red;
+}
+
+.active {
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 50%;
+  background-color: green;
 }
 
 .btns {

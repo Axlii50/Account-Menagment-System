@@ -3,11 +3,12 @@ import styles from "./Login.module.css";
 import Error from "../../components/errorCom/Error";
 import { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
+import Loader from "../../components/loader/Loader";
 
 function Login() {
   const [login, setLogin] = useState("Maciek");
   const [password, setPassword] = useState("Test123");
-  const { loginFun } = useAuth();
+  const { loginFun, isLoading } = useAuth();
 
   // const navigate = useNavigate();
 
@@ -22,6 +23,7 @@ function Login() {
 
   return (
     <div className={styles.login}>
+      {isLoading && <Loader />}
       <form className={styles.loginForm} onSubmit={handleSubmit}>
         <h1>Login</h1>
 
