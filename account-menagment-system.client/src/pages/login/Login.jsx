@@ -6,8 +6,8 @@ import { useAuth } from "../../contexts/AuthContext";
 import Loader from "../../components/loader/Loader";
 
 function Login() {
-  const [login, setLogin] = useState("Maciek");
-  const [password, setPassword] = useState("Test123");
+  const [login, setLogin] = useState("");
+  const [password, setPassword] = useState("");
   const { loginFun, isLoading } = useAuth();
 
   // const navigate = useNavigate();
