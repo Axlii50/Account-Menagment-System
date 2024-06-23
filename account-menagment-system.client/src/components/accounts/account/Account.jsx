@@ -2,20 +2,19 @@ import Button from "../../button/Button";
 
 import styles from "./Account.module.css";
 
-export default function Account() {
+export default function Account({ account }) {
   return (
     <li className={styles.account}>
-      <span className={styles.active}></span>
+      <span
+        className={`${account.isActive ? styles.active : styles.inActive}`}
+      ></span>
 
-      <p>Account name</p>
+      <p>{account.login}</p>
 
-      <p>Account date</p>
+      <p>&nbsp;</p>
 
       <div className={styles.btns}>
-        <Button type="action">Edytuj</Button>
-        <Button type="action">Wyłącz</Button>
-        <Button type="action">Usuń</Button>
-        <Button type="action">Dodaj</Button>
+        <Button type="action">{account.isActive ? "Wyłącz" : "Włącz"}</Button>
       </div>
     </li>
   );
