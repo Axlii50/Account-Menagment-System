@@ -1,16 +1,18 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 
 const AuthContext = createContext();
 
 const initialState = {
-  id: null,
-  isLogged: false,
+  user: null,
+  error: "",
+  isAuth: false,
+  isLoading: false,
 };
 
-function reducer(action, state) {
+function reducer(state, action) {
   switch (action.type) {
     case "login":
-      return { ...state, isLogged: true, id: action.payload };
+      return { ...state, user: action.payload, isAuth: true };
     case "logout":
       return { ...initialState };
     default:
@@ -19,7 +21,7 @@ function reducer(action, state) {
 }
 
 function AuthProvider({ children }) {
-  const [{ id, isLogged }, dispatch] = useReducer(reducer, initialState);
+  const [{ user, isAuth }, dispatch] = useReducer(reducer, initialState);
 
   async function login(login, password) {
     try {
@@ -30,18 +32,16 @@ function AuthProvider({ children }) {
         },
         body: JSON.stringify({ userName: login, password: password }),
       });
-      console.log(res);
       const data = await res.json();
-      console.log(res);
       console.log(data);
-      dispatch({ type: "login" });
+      dispatch({ type: "login", payload: data });
     } catch (err) {
       console.log(err.message);
     }
   }
 
   return (
-    <AuthContext.Provider value={{ id, isLogged, loginFun: login }}>
+    <AuthContext.Provider value={{ user, isAuth, loginFun: login }}>
       {children}
     </AuthContext.Provider>
   );

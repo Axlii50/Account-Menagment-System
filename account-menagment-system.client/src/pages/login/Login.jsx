@@ -2,13 +2,13 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../components/button/Button";
 import styles from "./Login.module.css";
 import Error from "../../components/errorCom/Error";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 
 function Login() {
   const [login, setLogin] = useState("Maciek");
   const [password, setPassword] = useState("Test123");
-  const { loginFun } = useAuth();
+  const { loginFun, user, isAuth } = useAuth();
 
   const navigate = useNavigate();
 
@@ -17,8 +17,14 @@ function Login() {
     if (!login || !password) return;
 
     loginFun(login, password);
-    navigate("/dashboard");
   }
+
+  useEffect(
+    function () {
+      if (isAuth) navigate("/dashboard");
+    },
+    [isAuth, navigate]
+  );
 
   return (
     <div className={styles.login}>
