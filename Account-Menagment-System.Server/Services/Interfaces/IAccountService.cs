@@ -8,5 +8,6 @@ namespace Account_Menagment_System.Server.Services.Interfaces
         Task<Account> GetAccount(Login login);
         Task<Account> GetAccount(Guid id);
         Task<AccountDTO> ChangeState(Guid id, bool state);
+        Task<AccountDTO[]> GetAccounts();
     }
 }
