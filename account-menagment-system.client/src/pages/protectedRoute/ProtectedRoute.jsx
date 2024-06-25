@@ -13,7 +13,7 @@ function ProtectedRoute({ children }) {
     [isAuth, navigate, user]
   );
 
-  return isAuth && user.isAdmin ? children : null;
+  return isAuth && user?.isAdmin ? children : null;
 }
 
 export default ProtectedRoute;

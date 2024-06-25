@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-import { useAuth } from "../../contexts/AuthContext";
 import { useDashboard } from "../../contexts/DashboardContext";
 
 import Account from "./account/Account";

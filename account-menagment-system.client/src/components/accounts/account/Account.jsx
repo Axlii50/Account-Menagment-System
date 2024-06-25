@@ -1,4 +1,3 @@
-import { useDashboard } from "../../../contexts/DashboardContext";
 import Button from "../../button/Button";
 
 import styles from "./Account.module.css";

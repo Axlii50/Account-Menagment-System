@@ -9,10 +9,15 @@ import { Router, useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
-const initialState = {
+const authDataGlobal = JSON.parse(localStorage.getItem("authData")) || {
   user: null,
-  error: "",
   isAuth: false,
+};
+
+const initialState = {
+  user: authDataGlobal.user,
+  error: "",
+  isAuth: authDataGlobal.isAuth,
 };
 
 function reducer(state, action) {
@@ -25,7 +30,7 @@ function reducer(state, action) {
         error: "",
       };
     case "logout":
-      return { ...initialState };
+      return { ...initialState, isAuth: false, user: null };
     case "rejected":
       return { ...state, error: action.payload };
     default:
@@ -66,6 +71,12 @@ function AuthProvider({ children }) {
       const data = await res.json();
 
       if (login === data.login && data.isAdmin === true) {
+        const authData = {
+          user: data,
+          isAuth: true,
+        };
+
+        localStorage.setItem("authData", JSON.stringify(authData));
         dispatch({ type: "login", payload: data });
         navigate("/dashboard", { replace: true });
       }
@@ -80,6 +91,7 @@ function AuthProvider({ children }) {
   }
 
   function logout() {
+    localStorage.removeItem("authData");
     dispatch({ type: "logout" });
   }
 

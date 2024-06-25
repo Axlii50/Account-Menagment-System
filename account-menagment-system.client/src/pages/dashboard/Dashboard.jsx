@@ -11,9 +11,12 @@ function Dashboard() {
   const { user } = useAuth();
   const { fetchAccounts } = useDashboard();
 
-  useEffect(function () {
-    fetchAccounts(user.id);
-  }, []);
+  useEffect(
+    function () {
+      fetchAccounts(user.id);
+    },
+    [user.id, fetchAccounts]
+  );
 
   return (
     <main className={styles.dashboard}>

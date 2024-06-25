@@ -1,12 +1,16 @@
-import { createContext, useContext, useReducer, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useReducer,
+  useState,
+} from "react";
 
 const DashboardContext = createContext();
 
 const initialState = {
   accounts: [],
 };
-
-let newArray;
 
 function reducer(state, action) {
   switch (action.type) {
@@ -32,7 +36,7 @@ function DashboardProvider({ children }) {
   const [{ accounts }, dispatch] = useReducer(reducer, initialState);
   const [isLoading, setIsLoading] = useState(false);
 
-  async function fetchAccounts(id) {
+  const fetchAccounts = useCallback(async function fetchAccounts(id) {
     try {
       setIsLoading(true);
       const res = await fetch("/Accounts/GetAccountsData", {
@@ -49,7 +53,7 @@ function DashboardProvider({ children }) {
     } finally {
       setIsLoading(false);
     }
-  }
+  }, []);
 
   async function changeStatus(id, status) {
     try {
