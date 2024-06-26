@@ -22,6 +22,13 @@ namespace Account_Menagment_System.Server.models.database.Account
         [DataType(DataType.DateTime)]
         public DateTime ExpirationDate { get; set; }
 
+        public int ThreadCount { get; set; }
+
+        /// <summary>
+        /// in bytes
+        /// </summary>
+        public int RamAmount { get; set; }
+
         public static implicit operator AccountDTO(Account model)
         {
             return new AccountDTO()
@@ -30,6 +37,17 @@ namespace Account_Menagment_System.Server.models.database.Account
                 Login = model.Login,
                 IsActive = model.IsActive,
                 IsAdmin = model.IsAdmin
+            };
+        }
+
+        public static implicit operator AccountRDPDTO(Account model)
+        {
+            return new AccountRDPDTO()
+            {
+                IsActive = model.IsActive,
+                IsAdmin = model.IsAdmin,
+                ThreadCount = model.ThreadCount,
+                RamAmountInMB = model.RamAmount,
             };
         }
     }

@@ -57,6 +57,18 @@ namespace Account_Menagment_System.Server.Controllers
             return Json((AccountDTO)account);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetRDPAccountData([Bind("accountLogin")]string accountLogin)
+        {
+            if (accountLogin == string.Empty) return BadRequest();
+
+            var account = await accountService.GetAccount(accountLogin);
+
+            if (account == null) return NotFound("Account not found");
+
+            return Json((AccountRDPDTO)account);
+        }
+
         [HttpPost]
         public async Task<IActionResult> GetAccountsData([FromBody] AccountData accountData)
         {

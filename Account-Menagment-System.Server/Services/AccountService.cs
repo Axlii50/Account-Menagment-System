@@ -22,9 +22,14 @@ namespace Account_Menagment_System.Server.Services
             return await context.Account.FirstOrDefaultAsync(acc => acc.Password == login.Password && acc.Login == login.UserName);
         }
 
-        public async Task<Account> GetAccount(Guid id)
+        public async Task<Account?> GetAccount(Guid id)
         {
             return await context.Account.FindAsync(id);
+        }
+
+        public async Task<Account?> GetAccount(string login)
+        {
+            return await context.Account.FirstOrDefaultAsync(acc => acc.Login == login);
         }
 
         public async Task<AccountDTO> ChangeState(Guid id, bool state)
