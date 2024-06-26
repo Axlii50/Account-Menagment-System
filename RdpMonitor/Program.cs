@@ -25,7 +25,6 @@ class Program
         {
             var properties = e.EventRecord.Properties;
             var username = properties[5].Value.ToString(); // Index 5 should correspond to the TargetUserName
-            var clientIpAddress = properties[18].Value.ToString(); // Index 18 should correspond to the IP address
 
             Console.WriteLine($"Detected RDP logon for user: {username}");
 
