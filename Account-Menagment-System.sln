@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Account-Menagment-System.Se
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "account-menagment-system.client", "account-menagment-system.client\account-menagment-system.client.esproj", "{AF46A5F1-1B23-40A3-B767-7F5C4E2046C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RdpMonitor", "RdpMonitor\RdpMonitor.csproj", "{58440F3B-9C42-4A25-A4B7-6DF5F1D57694}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RdpMonitor", "RdpMonitor\RdpMonitor.csproj", "{58440F3B-9C42-4A25-A4B7-6DF5F1D57694}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
