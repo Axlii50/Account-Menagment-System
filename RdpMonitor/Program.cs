@@ -17,7 +17,7 @@ partial class Program
         {
             worker.Timer_Elapsed();
 
-            Thread.Sleep(600000);
+            Thread.Sleep(300000);
         }
         
     }

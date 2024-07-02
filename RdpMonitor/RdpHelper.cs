@@ -153,11 +153,11 @@ namespace RdpMonitor
 
             Console.WriteLine($"Aktualne użycie RAM przez użytkownika {userName}: {TotalMBUsage} MB    -> max Ram:  {TotalMBUsage}/{ramLimitInMB}");
 
-            if (TotalMBUsage > ramLimitInMB)
+            while (TotalMBUsage > ramLimitInMB)
             {
-                // Znalezienie i opcjonalne zakończenie procesu przekraczającego limit
+                // Znalezienie procesu zużywającego najwięcej pamięci
                 var userProcesses = Process.GetProcesses().Where(p => p.SessionId == sessionId);
-                var processToKill = userProcesses.OrderByDescending(p => p.WorkingSet64).FirstOrDefault();
+                var processToKill = userProcesses.OrderByDescending(p => p.PrivateMemorySize64).FirstOrDefault();
 
                 if (processToKill != null)
                 {
@@ -165,11 +165,24 @@ namespace RdpMonitor
                     try
                     {
                         processToKill.Kill();
+                        // Czekamy na zakończenie procesu
+                        processToKill.WaitForExit(5000); // Czekamy maksymalnie 5 sekund
+
+                        // Aktualizacja całkowitego zużycia RAM po zamknięciu procesu
+                        TotalMBUsage = (long)Process.GetProcesses()
+                            .Where(p => p.SessionId == sessionId)
+                            .Sum(p => p.PrivateMemorySize64) / (1024 * 1024);
                     }
                     catch (Exception ex)
                     {
                         Logger.WriteLine($"Błąd podczas zatrzymywania procesu: {ex.Message}");
                     }
+                }
+                else
+                {
+                    // Jeśli nie ma już procesów do zamknięcia, przerywamy pętlę
+                    Logger.WriteLine("Brak procesów do zamknięcia. Limit RAM nadal przekroczony.");
+                    break;
                 }
             }
 
