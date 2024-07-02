@@ -125,7 +125,7 @@ namespace RdpMonitor
 
         public static void MonitorRam(string userName, int ramLimitInMB)
         {
-            ulong maxRAM = (ulong)(ramLimitInMB * 1024); // 8 GB w bajtach
+            
             //string userName = "NazwaUżytkownika";
             var sessionId = GetSessionIdByUsername(userName);
 
@@ -139,7 +139,7 @@ namespace RdpMonitor
                 {
                     if (process.SessionId == sessionId)
                     {
-                        totalRAMUsage += process.WorkingSet64;
+                        totalRAMUsage += process.PrivateMemorySize64;
                         //Logger.WriteLine(totalRAMUsage);
                     }
                 }
@@ -149,9 +149,11 @@ namespace RdpMonitor
                 }
             }
 
-            Console.WriteLine($"Aktualne użycie RAM przez użytkownika {userName}: {totalRAMUsage / (1024 * 1024)} MB    -> max Ram:  {totalRAMUsage}/{maxRAM}");
+            var TotalMBUsage = totalRAMUsage / (1024 * 1024);
 
-            if ((ulong)totalRAMUsage > maxRAM)
+            Console.WriteLine($"Aktualne użycie RAM przez użytkownika {userName}: {TotalMBUsage} MB    -> max Ram:  {TotalMBUsage}/{ramLimitInMB}");
+
+            if (TotalMBUsage > ramLimitInMB)
             {
                 // Znalezienie i opcjonalne zakończenie procesu przekraczającego limit
                 var userProcesses = Process.GetProcesses().Where(p => p.SessionId == sessionId);

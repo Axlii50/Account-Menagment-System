@@ -41,7 +41,7 @@ namespace RdpMonitor
             foreach (var account in accounts)
             {
                 var accountData = await Api.GetAccountRDPInfo(account);
-
+                //RdpHelper.MonitorRam(account, 9999999);
 
                 if (accountData == null)
                 {
@@ -51,7 +51,8 @@ namespace RdpMonitor
 
                 RdpHelper.DisableAccount(account, accountData.IsActive);
 
-                RdpHelper.MonitorRam(account, accountData.RamAmountInMB);
+                if (!accountData.IsAdmin)
+                    RdpHelper.MonitorRam(account, accountData.RamAmountInMB);
                 Logger.WriteLine(" ");
             }
         }

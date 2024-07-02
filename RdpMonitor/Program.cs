@@ -9,8 +9,6 @@ using System.ServiceProcess;
 
 partial class Program
 {
-    
-
     static void Main()
     {
        var worker =  new BackGroundWorker();
