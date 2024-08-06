@@ -14,7 +14,7 @@ namespace Account_Menagment_System.Server.models.database.Account
         public string Password { get; set; }
 
         [NotMapped]
-        public bool IsActive => Active /*&& ExpirationDate > DateTime.UtcNow*/;
+        public bool IsActive => Active && ExpirationDate <= DateTime.UtcNow;
         public bool IsAdmin { get; set; } = false;
        
         public bool Active { get; set; }
@@ -28,6 +28,12 @@ namespace Account_Menagment_System.Server.models.database.Account
         /// in bytes
         /// </summary>
         public int RamAmount { get; set; }
+
+        public bool BotState { get; set; } = false;
+        public bool IsBotActive => BotState && BotExpirationDate <= DateTime.UtcNow;
+
+        [DataType(DataType.DateTime)]
+        public DateTime BotExpirationDate { get; set; }
 
         public static implicit operator AccountDTO(Account model)
         {
@@ -46,6 +52,7 @@ namespace Account_Menagment_System.Server.models.database.Account
             {
                 IsActive = model.IsActive,
                 IsAdmin = model.IsAdmin,
+                IsBotActive = model.IsBotActive,
                 ThreadCount = model.ThreadCount,
                 RamAmountInMB = model.RamAmount,
             };
