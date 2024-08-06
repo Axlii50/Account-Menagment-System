@@ -100,9 +100,6 @@ namespace Account_Menagment_System.Server.Controllers
 
             if (account == null) return NotFound("Account not found");
 
-            Debug.WriteLine(account.BotState);
-            Debug.WriteLine(account.BotExpirationDate <= DateTime.Now);
-
             return Json(new { State = account.IsBotActive});
         }
     }
