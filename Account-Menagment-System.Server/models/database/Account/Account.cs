@@ -42,6 +42,7 @@ namespace Account_Menagment_System.Server.models.database.Account
                 ID = model.ID,
                 Login = model.Login,
                 IsActive = model.IsActive,
+                IsBotActive = model.IsBotActive,
                 IsAdmin = model.IsAdmin
             };
         }

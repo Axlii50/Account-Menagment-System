@@ -7,6 +7,8 @@
         public string Login { get; set; }
 
         public bool IsActive { get; set; }
+
+        public bool IsBotActive { get; set; }
         public bool IsAdmin { get; set; }
     }
 }
