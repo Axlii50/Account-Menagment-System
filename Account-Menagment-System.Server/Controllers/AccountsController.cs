@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Account_Menagment_System.Server.Services;
 using Account_Menagment_System.Server.models.Account;
 using Account_Menagment_System.Server.Services.Interfaces;
+using System.Diagnostics;
 
 namespace Account_Menagment_System.Server.Controllers
 {
@@ -43,6 +44,14 @@ namespace Account_Menagment_System.Server.Controllers
             if (changeStateAccount == null) return BadRequest();
 
             return Json(await accountService.ChangeState(changeStateAccount, changeStateAccount));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeStateBot([FromBody] ChangeStateAccount changeStateAccount)
+        {
+            if (changeStateAccount == null) return BadRequest();
+
+            return Json(await accountService.ChangeStateBot(changeStateAccount, changeStateAccount));
         }
 
         [HttpGet]
@@ -80,6 +89,21 @@ namespace Account_Menagment_System.Server.Controllers
             if(!account.IsAdmin) return BadRequest("Account is not Admin");
 
             return Json(await accountService.GetAccounts());
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> IsBotActive([Bind("accountLogin")] string accountLogin)
+        {
+            if (accountLogin == string.Empty) return BadRequest();
+
+            var account = await accountService.GetAccount(accountLogin);
+
+            if (account == null) return NotFound("Account not found");
+
+            Debug.WriteLine(account.BotState);
+            Debug.WriteLine(account.BotExpirationDate <= DateTime.Now);
+
+            return Json(new { State = account.IsBotActive});
         }
     }
 }

@@ -43,6 +43,17 @@ namespace Account_Menagment_System.Server.Services
 
             return account;
         }
+        public async Task<AccountDTO> ChangeStateBot(Guid id, bool state)
+        {
+            var account = await GetAccount(id);
+
+            account.BotState = state;
+
+            context.Update(account);
+            await context.SaveChangesAsync();
+
+            return account;
+        }
 
         public async Task<AccountDTO[]> GetAccounts()
         {
