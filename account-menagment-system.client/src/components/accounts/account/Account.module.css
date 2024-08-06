@@ -19,6 +19,17 @@
   font-size: 2rem;
 }
 
+.account span {
+  display: inline-block;
+}
+
+.botBtns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
 .inActive {
   width: 1.9rem;
   height: 1.9rem;
@@ -37,5 +48,5 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  gap: 2rem;
 }
