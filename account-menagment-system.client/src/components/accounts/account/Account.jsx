@@ -2,8 +2,9 @@ import Button from "../../button/Button";
 
 import styles from "./Account.module.css";
 
-export default function Account({ account, changeStatus }) {
-  const active = !account.isActive;
+export default function Account({ account, changeStatus, changeStatusBot }) {
+  const activeAccount = !account.isActive;
+  const activeBot = !account.BotStatus;
 
   return (
     <li className={styles.account}>
@@ -16,7 +17,21 @@ export default function Account({ account, changeStatus }) {
       <p>&nbsp;</p>
 
       <div className={styles.btns}>
-        <Button onClick={() => changeStatus(account.id, active)} type="action">
+        <div className={styles.botBtns}>
+          <span
+            className={`${account.BotStatus ? styles.active : styles.inActive}`}
+          ></span>
+          <Button
+            onClick={() => changeStatusBot(account.id, activeAccount)}
+            type="action"
+          >
+            {account.BotStatus ? "Wyłącz bota" : "Włącz bota"}
+          </Button>
+        </div>
+        <Button
+          onClick={() => changeStatus(account.id, activeAccount)}
+          type="action"
+        >
           {account.isActive ? "Wyłącz" : "Włącz"}
         </Button>
       </div>

@@ -24,7 +24,7 @@
 }
 
 .action {
-  width: 12rem;
+  min-width: 12rem;
   font-weight: 500;
 
   background-color: var(--color-white);

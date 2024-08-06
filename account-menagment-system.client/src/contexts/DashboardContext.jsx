@@ -27,6 +27,17 @@ function reducer(state, action) {
           }
         }),
       };
+    case "changeStatusBot":
+      return {
+        ...state,
+        accounts: state.accounts.map((account) => {
+          if (account.id == action.payload.id) {
+            return { ...account, BotState: !account.BotState };
+          } else {
+            return account;
+          }
+        }),
+      };
     default:
       throw new Error("Action unknown");
   }
@@ -75,9 +86,36 @@ function DashboardProvider({ children }) {
     }
   }
 
+  async function changeStatusBot(id, status) {
+    try {
+      setIsLoading(true);
+      const res = await fetch("/Accounts/ChangeStateBot", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ID: id, State: status }),
+      });
+      const data = await res.json();
+      console.log(data);
+
+      dispatch({ type: "changeStatusBot", payload: data });
+    } catch (err) {
+      err.message;
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   return (
     <DashboardContext.Provider
-      value={{ accounts, fetchAccounts, isLoading, changeStatus }}
+      value={{
+        accounts,
+        fetchAccounts,
+        isLoading,
+        changeStatus,
+        changeStatusBot,
+      }}
     >
       {children}
     </DashboardContext.Provider>
