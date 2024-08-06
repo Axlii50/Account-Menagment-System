@@ -32,7 +32,7 @@ function reducer(state, action) {
         ...state,
         accounts: state.accounts.map((account) => {
           if (account.id == action.payload.id) {
-            return { ...account, BotState: !account.BotState };
+            return { ...account, isBotActive: !account.isBotActive };
           } else {
             return account;
           }
