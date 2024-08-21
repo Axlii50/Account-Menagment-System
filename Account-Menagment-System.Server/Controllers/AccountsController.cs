@@ -54,6 +54,22 @@ namespace Account_Menagment_System.Server.Controllers
             return Json(await accountService.ChangeStateBot(changeStateAccount, changeStateAccount));
         }
 
+        [HttpPost]
+        public async Task<IActionResult> ExtendActiveState([FromBody] ChangeStateAccount changeStateAccount)
+        {
+            if (changeStateAccount == null) return BadRequest();
+
+            return Json(await accountService.AccountAddMonth(changeStateAccount));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ExtendBotActiveState([FromBody] ChangeStateAccount changeStateAccount)
+        {
+            if (changeStateAccount == null) return BadRequest();
+
+            return Json(await accountService.BotAddMonth(changeStateAccount));
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetAccountData([FromBody] AccountData accountData)
         {
@@ -100,7 +116,11 @@ namespace Account_Menagment_System.Server.Controllers
 
             if (account == null) return NotFound("Account not found");
 
+            var t = account.BotExpirationDate >= DateTime.UtcNow;
+
             return Json(new { State = account.IsBotActive});
         }
+
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Account_Menagment_System.Server.models.Account;
 using Account_Menagment_System.Server.models.database.Account;
+using System.Threading.Tasks;
 
 namespace Account_Menagment_System.Server.Services.Interfaces
 {
@@ -11,5 +12,7 @@ namespace Account_Menagment_System.Server.Services.Interfaces
         Task<AccountDTO> ChangeState(Guid id, bool state);
         Task<AccountDTO> ChangeStateBot(Guid id, bool state);
         Task<AccountDTO[]> GetAccounts();
+        Task<AccountDTO> AccountAddMonth(Guid id);
+        Task<AccountDTO> BotAddMonth(Guid id);
     }
 }
