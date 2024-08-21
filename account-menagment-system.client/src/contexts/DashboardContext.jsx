@@ -38,6 +38,28 @@ function reducer(state, action) {
           }
         }),
       };
+    case "extendUserStatus":
+      return {
+        ...state,
+        accounts: state.accounts.map((account) => {
+          if (account.id == action.payload.id) {
+            return { ...account, isActive: action.payload.isActive };
+          } else {
+            return account;
+          }
+        }),
+      };
+    case "extendBotStatus":
+      return {
+        ...state,
+        accounts: state.accounts.map((account) => {
+          if (account.id == action.payload.id) {
+            return { ...account, isBotActive: action.payload.isBotActive };
+          } else {
+            return account;
+          }
+        }),
+      };
     default:
       throw new Error("Action unknown");
   }
@@ -97,9 +119,48 @@ function DashboardProvider({ children }) {
         body: JSON.stringify({ ID: id, State: status }),
       });
       const data = await res.json();
-      console.log(data);
 
       dispatch({ type: "changeStatusBot", payload: data });
+    } catch (err) {
+      err.message;
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  async function extendActiveState(id) {
+    try {
+      setIsLoading(true);
+      const res = await fetch("/Accounts/ExtendActiveState", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ID: id }),
+      });
+      const data = await res.json();
+
+      dispatch({ type: "extendUserStatus", payload: data });
+    } catch (err) {
+      err.message;
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  async function extendBotActiveState(id) {
+    try {
+      setIsLoading(true);
+      const res = await fetch("/Accounts/ExtendActiveState", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ID: id }),
+      });
+      const data = await res.json();
+
+      dispatch({ type: "extendUserStatus", payload: data });
     } catch (err) {
       err.message;
     } finally {
@@ -115,6 +176,8 @@ function DashboardProvider({ children }) {
         isLoading,
         changeStatus,
         changeStatusBot,
+        extendActiveState,
+        extendBotActiveState,
       }}
     >
       {children}

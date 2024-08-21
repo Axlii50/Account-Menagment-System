@@ -2,7 +2,13 @@ import Button from "../../button/Button";
 
 import styles from "./Account.module.css";
 
-export default function Account({ account, changeStatus, changeStatusBot }) {
+export default function Account({
+  account,
+  changeStatus,
+  changeStatusBot,
+  extendActiveState,
+  extendBotActiveState,
+}) {
   const activeAccount = !account.isActive;
   const activeBot = !account.isBotActive;
 
@@ -35,6 +41,13 @@ export default function Account({ account, changeStatus, changeStatusBot }) {
           type="action"
         >
           {account.isActive ? "Wyłącz" : "Włącz"}
+        </Button>
+
+        <Button onClick={() => extendActiveState(account.id)} type="action">
+          Przedłuż konto
+        </Button>
+        <Button onClick={() => extendBotActiveState(account.id)} type="action">
+          Przedłuż bota
         </Button>
       </div>
     </li>

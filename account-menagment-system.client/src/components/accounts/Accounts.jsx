@@ -6,7 +6,14 @@ import LoaderDashboard from "../../components/loader/LoaderDashboard";
 import styles from "./Accounts.module.css";
 
 function Accounts() {
-  const { accounts, isLoading, changeStatus, changeStatusBot } = useDashboard();
+  const {
+    accounts,
+    isLoading,
+    changeStatus,
+    changeStatusBot,
+    extendActiveState,
+    extendBotActiveState,
+  } = useDashboard();
 
   if (isLoading) return <LoaderDashboard />;
 
@@ -20,6 +27,8 @@ function Accounts() {
           account={account}
           changeStatus={changeStatus}
           changeStatusBot={changeStatusBot}
+          extendActiveState={extendActiveState}
+          extendBotActiveState={extendBotActiveState}
         />
       ))}
     </ul>
