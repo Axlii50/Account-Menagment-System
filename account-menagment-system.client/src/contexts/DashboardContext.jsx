@@ -160,7 +160,7 @@ function DashboardProvider({ children }) {
       });
       const data = await res.json();
 
-      dispatch({ type: "extendUserStatus", payload: data });
+      dispatch({ type: "extendBotStatus", payload: data });
     } catch (err) {
       err.message;
     } finally {
