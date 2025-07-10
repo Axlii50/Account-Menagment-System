@@ -35,6 +35,10 @@ namespace Account_Menagment_System.Server.models.database.Account
         [DataType(DataType.DateTime)]
         public DateTime BotExpirationDate { get; set; }
 
+        public string BotMacAddress { get; set; }
+
+        public string SessionsExpirationOveride {  get; set; }
+
         public static implicit operator AccountDTO(Account model)
         {
             return new AccountDTO()

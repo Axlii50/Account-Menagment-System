@@ -116,11 +116,48 @@ namespace Account_Menagment_System.Server.Controllers
 
             if (account == null) return NotFound("Account not found");
 
-            var t = account.BotExpirationDate >= DateTime.UtcNow;
-
             return Json(new { State = account.IsBotActive});
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetMac([Bind("accountLogin")] string accountLogin)
+        {
+            if (accountLogin == string.Empty) return BadRequest();
 
+            var account = await accountService.GetAccount(accountLogin);
+
+            if (account == null) return NotFound("Account not found");
+
+            return Json(new { Mac = account.BotMacAddress });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SetMac([Bind("accountLogin,Mac")] string accountLogin, string Mac)
+        {
+            if (accountLogin == string.Empty) return BadRequest();
+
+            var account = await accountService.GetAccount(accountLogin);
+
+            if (account == null) return NotFound("Account not found");
+
+            if (account.BotMacAddress != string.Empty)
+                return BadRequest();
+
+            await accountService.SetMac(account.ID, Mac);
+
+            return Ok();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetOveride([Bind("accountLogin")] string accountLogin)
+        {
+            if (accountLogin == string.Empty) return BadRequest();
+
+            var account = await accountService.GetAccount(accountLogin);
+
+            if (account == null) return NotFound("Account not found");
+
+            return Json(new { ExpireValue = account.SessionsExpirationOveride });
+        }
     }
 }

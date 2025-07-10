@@ -4,6 +4,7 @@ using Account_Menagment_System.Server.models.database.Account;
 using Account_Menagment_System.Server.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
+using Mono.TextTemplating;
 using Login = Account_Menagment_System.Server.models.Account.Login;
 
 namespace Account_Menagment_System.Server.Services
@@ -48,7 +49,7 @@ namespace Account_Menagment_System.Server.Services
         {
             var account = await GetAccount(id);
 
-            account.ExpirationDate.AddMonths(1);
+            account.ExpirationDate = account.ExpirationDate.AddMonths(1);
 
             context.Update(account);
             await context.SaveChangesAsync();
@@ -60,7 +61,7 @@ namespace Account_Menagment_System.Server.Services
         {
             var account = await GetAccount(id);
 
-            account.BotExpirationDate.AddMonths(1);
+            account.BotExpirationDate = account.BotExpirationDate.AddMonths(1);
 
             context.Update(account);
             await context.SaveChangesAsync();
@@ -83,6 +84,16 @@ namespace Account_Menagment_System.Server.Services
         public async Task<AccountDTO[]> GetAccounts()
         {
            return await context.Account.Where(acc => !acc.IsAdmin).Select(acc => (AccountDTO)acc).ToArrayAsync();
+        }
+
+        public async Task SetMac(Guid id, string mac)
+        {
+            var account = await GetAccount(id);
+
+            account.BotMacAddress = mac;
+
+            context.Update(account);
+            await context.SaveChangesAsync();
         }
     }
 }

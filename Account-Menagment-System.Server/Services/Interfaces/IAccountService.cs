@@ -14,5 +14,6 @@ namespace Account_Menagment_System.Server.Services.Interfaces
         Task<AccountDTO[]> GetAccounts();
         Task<AccountDTO> AccountAddMonth(Guid id);
         Task<AccountDTO> BotAddMonth(Guid id);
+        Task SetMac(Guid id, string mac);
     }
 }
